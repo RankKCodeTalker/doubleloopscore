@@ -1,0 +1,6 @@
+torch
+requests
+transformers==4.29.1
+sentencepiece
+openai
+git+https://github.com/RankKCodeTalker/myutils.git
