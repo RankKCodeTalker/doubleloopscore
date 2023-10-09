@@ -53,16 +53,5 @@ def get_result_direct(question: str, answer1: str, answer2: str) -> int:
     """
     prompt = get_prompt(question, answer1, answer2)
     model_response = call_glm(prompt)
-    for i in range(len(output_options)):
-        if model_response == output_options:
-            return i
-    for i in range(len(output_options)):
-        if model_response.startswith(output_options[i]):
-            return i
-    num_key_words = [model_response.count("1"), model_response.count("2"), model_response.count("一样")]
-    if num_key_words[0] > num_key_words[1] and num_key_words[0] > num_key_words[2]:
-        return 0
-    if num_key_words[1] > num_key_words[0] and num_key_words[1] > num_key_words[2]:
-        return 1
-    return 2
+    return get_result(model_response)
 
