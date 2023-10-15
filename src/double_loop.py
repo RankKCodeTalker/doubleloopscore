@@ -38,14 +38,14 @@ def double_loop_score(xc: int, xs: List[int], ys: List[int]) -> float:
         return ys[-1]
     if xc < xs[0]:
         return ys[0]
-    if len(set(xs)) == num_scored_answers:
-        for i in range(num_scored_answers):
-            if xc == xs[i]:
-                return ys[i]
-    else:
-        for i in range(num_scored_answers-1):
-            if xc == xs[i] and xc == xs[i+1]:
+    for i in range(num_scored_answers-1):
+        if xc == xs[i]:
+            if xc == xs[i+1]:
                 return (ys[i]+ys[i+1])/2
+            else:
+                return ys[i]
+    if xc == xs[-1]:
+        return ys[-1]
     for i in range(num_scored_answers):
         if xc < xs[i]:
             l = i-1
@@ -62,6 +62,8 @@ def double_loop_score(xc: int, xs: List[int], ys: List[int]) -> float:
     tmp: torch.Tensor = 1/deltaxs/d.pow(2)
     yc = (yl+yr)/2+(yr-yl)/2*tmp.sum(dim=0)/tmp.abs().sum(dim=0)
     return float(yc)
+
+
 
 
     
